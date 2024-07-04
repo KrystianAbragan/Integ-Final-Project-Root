@@ -1,10 +1,9 @@
-import React, {useState} from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Image, Pressable  } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, Text, View, TouchableOpacity, Image, Pressable } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useNavigation } from "@react-navigation/native";
 import Logo from "../../../assets/image/logo.png";
 import Modal from 'react-native-modal';
-
 
 export default function TeacherNotification() {
   const navigation = useNavigation();
@@ -33,11 +32,10 @@ export default function TeacherNotification() {
       </View>
       <Text style={styles.dashboardText}>Notification</Text>
       <View style={styles.grid}>
-        
+        {/* Notification items or content can be added here */}
       </View>
 
-      <Modal isVisible={isModalVisible} onBackdropPress={toggleModal}style={styles.modal}>
-
+      <Modal isVisible={isModalVisible} onBackdropPress={toggleModal} style={styles.modal}>
         <View style={styles.modalContent}>
           <View style={styles.modalHeader}>
             <Icon name="user-circle" size={50} color="#000" />
@@ -52,7 +50,7 @@ export default function TeacherNotification() {
             onPressOut={handlePressOut}
             onPress={() => {
               toggleModal();
-              navigation.navigate("CourseManagement");
+              navigation.navigate("TeacherCourseManagement");
             }}
           >
             <Text style={pressedItem === 'Course Management' ? styles.menuTextPressed : styles.menuText}>Course Management</Text>
@@ -66,33 +64,21 @@ export default function TeacherNotification() {
             onPressOut={handlePressOut}
             onPress={() => {
               toggleModal();
-              navigation.navigate("StudentNotification");
+              navigation.navigate("TeacherNotification");
             }}
           >
             <Text style={pressedItem === 'Notification' ? styles.menuTextPressed : styles.menuText}>Notification</Text>
           </Pressable>
-          <Pressable
-            style={({ pressed }) => [
-              styles.menuItem,
-              pressedItem === 'Settings' && styles.menuItemPressed,
-            ]}
-            onPressIn={() => handlePressIn('Settings')}
-            onPressOut={handlePressOut}
-            onPress={() => {
-              toggleModal();
-              navigation.navigate("Settings");
-            }}
-          >
-            <Text style={pressedItem === 'Settings' ? styles.menuTextPressed : styles.menuText}>Settings</Text>
-          </Pressable>
           <TouchableOpacity style={styles.logoutButton} onPress={() => {
-            toggleModal(); navigation.navigate("LoginScreen")
+            toggleModal();
+            navigation.navigate("LoginScreen");
           }}>
             <Icon name="sign-out" size={20} color="#fff" />
             <Text style={styles.logoutText}>LOG OUT</Text>
           </TouchableOpacity>
         </View>
       </Modal>
+
     </View>
   );
 }
@@ -114,8 +100,8 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   logo: {
-    width: 150, 
-    height: 50, 
+    width: 150,
+    height: 50,
     resizeMode: "contain",
     alignItems: "center",
   },
@@ -128,12 +114,16 @@ const styles = StyleSheet.create({
     margin: 10,
     fontWeight: "500",
   },
-  //menu ni sya
+  grid: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   modal: {
     justifyContent: 'flex-start',
     margin: 0,
     marginRight: 50,
-    marginTop: 45, 
+    marginTop: 45,
   },
   modalContent: {
     backgroundColor: "white",
@@ -181,7 +171,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     marginTop: 355,
-    borderWidth: 1, 
+    borderWidth: 1,
   },
   logoutText: {
     color: "#fff",

@@ -78,14 +78,6 @@ export default function CourseManagement() {
           <Text style={styles.dropButtonText}>Drop</Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.footer}>
-        <TouchableOpacity style={styles.footerButton}>
-          <Icon name="arrow-left" size={30} color="#000" />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.footerButton}>
-          <Icon name="home" size={30} color="#000" />
-        </TouchableOpacity>
-      </View>
 
       <Modal isVisible={isModalVisible} onBackdropPress={toggleModal}style={styles.modal}>
 
@@ -117,7 +109,7 @@ export default function CourseManagement() {
             onPressOut={handlePressOut}
             onPress={() => {
               toggleModal();
-              navigation.navigate("SGrade");
+              navigation.navigate("StudentGrade");
             }}
           >
             <Text style={pressedItem === 'Grades' ? styles.menuTextPressed : styles.menuText}>Grades</Text>
@@ -135,20 +127,6 @@ export default function CourseManagement() {
             }}
           >
             <Text style={pressedItem === 'Notification' ? styles.menuTextPressed : styles.menuText}>Notification</Text>
-          </Pressable>
-          <Pressable
-            style={({ pressed }) => [
-              styles.menuItem,
-              pressedItem === 'Settings' && styles.menuItemPressed,
-            ]}
-            onPressIn={() => handlePressIn('Settings')}
-            onPressOut={handlePressOut}
-            onPress={() => {
-              toggleModal();
-              navigation.navigate("Settings");
-            }}
-          >
-            <Text style={pressedItem === 'Settings' ? styles.menuTextPressed : styles.menuText}>Settings</Text>
           </Pressable>
           <TouchableOpacity style={styles.logoutButton} onPress={() => {
             toggleModal(); navigation.navigate("LoginScreen")
@@ -254,19 +232,6 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 18,
     fontWeight: "bold",
-  },
-  footer: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderTopWidth: 1,
-    borderTopColor: "#ccc",
-    backgroundColor: "#fff",
-  },
-  footerButton: {
-    alignItems: "center",
-    paddingHorizontal: 10,
   },
   modal: {
     justifyContent: 'flex-start',

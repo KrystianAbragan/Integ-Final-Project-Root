@@ -1,15 +1,15 @@
-import React, {useState} from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Image, Pressable  } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, Text, View, TouchableOpacity, Image, Pressable } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useNavigation } from "@react-navigation/native";
 import Logo from "../../../assets/image/logo.png";
 import Modal from 'react-native-modal';
 
-
 export default function StudentNotification() {
   const navigation = useNavigation();
   const [isModalVisible, setModalVisible] = useState(false);
   const [pressedItem, setPressedItem] = useState(null);
+  const [notifications, setNotifications] = useState([]); // Add state for notifications
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
@@ -33,11 +33,17 @@ export default function StudentNotification() {
       </View>
       <Text style={styles.dashboardText}>Notification</Text>
       <View style={styles.grid}>
-        
+        {notifications.length === 0 ? (
+          <Text style={styles.noNotificationText}>No notification found</Text>
+        ) : (
+          // Render your notifications here
+          notifications.map((notification, index) => (
+            <Text key={index}>{notification}</Text>
+          ))
+        )}
       </View>
 
-      <Modal isVisible={isModalVisible} onBackdropPress={toggleModal}style={styles.modal}>
-
+      <Modal isVisible={isModalVisible} onBackdropPress={toggleModal} style={styles.modal}>
         <View style={styles.modalContent}>
           <View style={styles.modalHeader}>
             <Icon name="user-circle" size={50} color="#000" />
@@ -66,7 +72,7 @@ export default function StudentNotification() {
             onPressOut={handlePressOut}
             onPress={() => {
               toggleModal();
-              navigation.navigate("SGrade");
+              navigation.navigate("StudentGrade");
             }}
           >
             <Text style={pressedItem === 'Grades' ? styles.menuTextPressed : styles.menuText}>Grades</Text>
@@ -85,22 +91,9 @@ export default function StudentNotification() {
           >
             <Text style={pressedItem === 'Notification' ? styles.menuTextPressed : styles.menuText}>Notification</Text>
           </Pressable>
-          <Pressable
-            style={({ pressed }) => [
-              styles.menuItem,
-              pressedItem === 'Settings' && styles.menuItemPressed,
-            ]}
-            onPressIn={() => handlePressIn('Settings')}
-            onPressOut={handlePressOut}
-            onPress={() => {
-              toggleModal();
-              navigation.navigate("Settings");
-            }}
-          >
-            <Text style={pressedItem === 'Settings' ? styles.menuTextPressed : styles.menuText}>Settings</Text>
-          </Pressable>
           <TouchableOpacity style={styles.logoutButton} onPress={() => {
-            toggleModal(); navigation.navigate("LoginScreen")
+            toggleModal();
+            navigation.navigate("LoginScreen");
           }}>
             <Icon name="sign-out" size={20} color="#fff" />
             <Text style={styles.logoutText}>LOG OUT</Text>
@@ -128,8 +121,8 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   logo: {
-    width: 150, 
-    height: 50, 
+    width: 150,
+    height: 50,
     resizeMode: "contain",
     alignItems: "center",
   },
@@ -142,12 +135,20 @@ const styles = StyleSheet.create({
     margin: 10,
     fontWeight: "500",
   },
-  //menu ni sya
+  grid: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  noNotificationText: {
+    fontSize: 16,
+    color: "#888",
+  },
   modal: {
     justifyContent: 'flex-start',
     margin: 0,
     marginRight: 50,
-    marginTop: 45, 
+    marginTop: 45,
   },
   modalContent: {
     backgroundColor: "white",
@@ -195,7 +196,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     marginTop: 300,
-    borderWidth: 1, 
+    borderWidth: 1,
   },
   logoutText: {
     color: "#fff",

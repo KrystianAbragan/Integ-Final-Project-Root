@@ -103,7 +103,7 @@ export default function StudentProfile() {
             onPressOut={handlePressOut}
             onPress={() => {
               toggleModal();
-              navigation.navigate("SGrade");
+              navigation.navigate("StudentGrade");
             }}
           >
             <Text style={pressedItem === 'Grades' ? styles.menuTextPressed : styles.menuText}>Grades</Text>
@@ -121,20 +121,6 @@ export default function StudentProfile() {
             }}
           >
             <Text style={pressedItem === 'Notification' ? styles.menuTextPressed : styles.menuText}>Notification</Text>
-          </Pressable>
-          <Pressable
-            style={({ pressed }) => [
-              styles.menuItem,
-              pressedItem === 'Settings' && styles.menuItemPressed,
-            ]}
-            onPressIn={() => handlePressIn('Settings')}
-            onPressOut={handlePressOut}
-            onPress={() => {
-              toggleModal();
-              navigation.navigate("Settings");
-            }}
-          >
-            <Text style={pressedItem === 'Settings' ? styles.menuTextPressed : styles.menuText}>Settings</Text>
           </Pressable>
           <TouchableOpacity style={styles.logoutButton} onPress={() => {
             toggleModal(); navigation.navigate("LoginScreen")

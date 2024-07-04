@@ -67,7 +67,7 @@ export default function TeacherDashboard() {
     onPressOut={handlePressOut}
     onPress={() => {
       toggleModal();
-      navigation.navigate("CourseManagement");
+      navigation.navigate("TeacherCourseManagement");
     }}
   >
     <Text style={pressedItem === 'Course Management' ? styles.menuTextPressed : styles.menuText}>Course & Student Management</Text>
@@ -81,24 +81,10 @@ export default function TeacherDashboard() {
     onPressOut={handlePressOut}
     onPress={() => {
       toggleModal();
-      navigation.navigate("StudentNotification");
+      navigation.navigate("TeacherNotification");
     }}
   >
     <Text style={pressedItem === 'Notification' ? styles.menuTextPressed : styles.menuText}>Notification</Text>
-  </Pressable>
-  <Pressable
-    style={({ pressed }) => [
-      styles.menuItem,
-      pressedItem === 'Settings' && styles.menuItemPressed,
-    ]}
-    onPressIn={() => handlePressIn('Settings')}
-    onPressOut={handlePressOut}
-    onPress={() => {
-      toggleModal();
-      navigation.navigate("Settings");
-    }}
-  >
-    <Text style={pressedItem === 'Settings' ? styles.menuTextPressed : styles.menuText}>Settings</Text>
   </Pressable>
   <TouchableOpacity style={styles.logoutButton} onPress={() => {
     toggleModal(); navigation.navigate("LoginScreen")

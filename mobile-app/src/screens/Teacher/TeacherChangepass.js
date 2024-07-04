@@ -25,7 +25,7 @@ export default function TeacherChangepass() {
   };
 
   const handleSubmit = () => {
-    // Handle password change logic here
+
     console.log("Old Password:", oldPassword);
     console.log("New Password:", newPassword);
   };
@@ -42,7 +42,7 @@ export default function TeacherChangepass() {
       <View style={styles.profileContainer}>
         <Icon name="user-circle" size={100} color="#000" />
         <Text style={styles.nameText}>CHRISTIAN JAY ABRAGAN</Text>
-        <Text style={styles.roleText}>BSIT 3R2</Text>
+        <Text style={styles.roleText}>INSTRUCTOR</Text>
         <Text style={styles.idText}>2021301831</Text>
       </View>
       <View style={styles.inputContainer}>
@@ -82,7 +82,7 @@ export default function TeacherChangepass() {
             onPressOut={handlePressOut}
             onPress={() => {
               toggleModal();
-              navigation.navigate("CourseManagement");
+              navigation.navigate("TeacherCourseManagement");
             }}
           >
             <Text style={pressedItem === 'Course Management' ? styles.menuTextPressed : styles.menuText}>Course Management</Text>
@@ -96,24 +96,10 @@ export default function TeacherChangepass() {
             onPressOut={handlePressOut}
             onPress={() => {
               toggleModal();
-              navigation.navigate("StudentNotification");
+              navigation.navigate("TeacherNotification");
             }}
           >
             <Text style={pressedItem === 'Notification' ? styles.menuTextPressed : styles.menuText}>Profile</Text>
-          </Pressable>
-          <Pressable
-            style={({ pressed }) => [
-              styles.menuItem,
-              pressedItem === 'Settings' && styles.menuItemPressed,
-            ]}
-            onPressIn={() => handlePressIn('Settings')}
-            onPressOut={handlePressOut}
-            onPress={() => {
-              toggleModal();
-              navigation.navigate("Settings");
-            }}
-          >
-            <Text style={pressedItem === 'Settings' ? styles.menuTextPressed : styles.menuText}>Settings</Text>
           </Pressable>
           <TouchableOpacity style={styles.logoutButton} onPress={() => {
             toggleModal(); navigation.navigate("LoginScreen")

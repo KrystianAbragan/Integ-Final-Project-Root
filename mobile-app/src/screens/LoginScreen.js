@@ -5,26 +5,30 @@ import {
   TouchableOpacity,
   TextInput,
   Image,
+  Modal,
 } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Logo from "../../assets/image/logo.png";
 import Icon from "react-native-vector-icons/Ionicons";
-import CheckBox from "expo-checkbox";
 
 const LoginScreen = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [isChecked, setIsChecked] = useState(false);
+  const [isHelpModalVisible, setIsHelpModalVisible] = useState(false);
   const navigation = useNavigation();
 
   const handleLogin = () => {
-    // navigation.navigate("Dashboard"); //for students na
-    navigation.navigate("TeacherDashboard"); //for teacher na sya
+    navigation.navigate("Dashboard"); //for students na
+    // navigation.navigate("TeacherDashboard"); //for teacher na sya
+  };
+
+  const toggleHelpModal = () => {
+    setIsHelpModalVisible(!isHelpModalVisible);
   };
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.icon}>
+      <TouchableOpacity style={styles.icon} onPress={toggleHelpModal}>
         <Icon name="help-circle-outline" size={45} color="black" />
       </TouchableOpacity>
       <View>
@@ -51,6 +55,26 @@ const LoginScreen = () => {
       </TouchableOpacity>
       <View style={styles.checkbox}>
       </View>
+
+      <Modal
+        visible={isHelpModalVisible}
+        transparent={true}
+        animationType="slide"
+        onRequestClose={toggleHelpModal}
+      >
+        <View style={styles.modalBackground}>
+          <View style={styles.modalContainer}>
+            <Text style={styles.modalTitle}>Help</Text>
+            <Text style={styles.modalText}>
+              If you have problems logging in, try again later or contact our
+              developer or learning provider.
+            </Text>
+            <TouchableOpacity style={styles.closeButton} onPress={toggleHelpModal}>
+              <Text style={styles.closeButtonText}>Close</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -71,7 +95,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     paddingTop: 50,
   },
-  icon:{
+  icon: {
     marginLeft: "auto",
   },
   passwordContainer: {
@@ -106,6 +130,45 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "semibold",
     fontSize: 20,
+  },
+  modalBackground: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  modalContainer: {
+    width: 300,
+    padding: 20,
+    backgroundColor: "white",
+    borderRadius: 10,
+    alignItems: "center",
+    borderWidth: 1,
+    elevation: 5,
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 10,
+  },
+  modalText: {
+    fontSize: 16,
+    textAlign: "center",
+    marginBottom: 20,
+
+  },
+  closeButton: {
+    backgroundColor: "#ffc619",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 20,
+    alignItems: "center",
+    borderWidth: 1,
+    elevation: 5,
+  },
+  closeButtonText: {
+    color: "white",
+    fontSize: 16,
   },
 });
 
